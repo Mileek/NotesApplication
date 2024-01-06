@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-android-extensions")
     // KSP handling for DB
     id("com.google.devtools.ksp") version "1.5.30-1.0.0"
 }
@@ -38,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.6")
     val room_version = "2.6.1"
 
     implementation("androidx.core:core-ktx:1.12.0")

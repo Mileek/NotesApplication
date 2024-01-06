@@ -78,6 +78,7 @@
         android:layout_height="wrap_content"
         app:backgroundTint="@color/teal_700"
         app:tint="@color/White"
+        android:id="@+id/fabAddNote"
         android:src="@drawable/ic_add"
         android:layout_margin="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
