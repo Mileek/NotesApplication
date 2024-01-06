@@ -5,23 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.example.notesapplication.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
-
+class HomeFragment : BaseFragment() {
+    private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        // Utwórz binding FragmentHomeBinding
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        // Zwróć widok związany z bindingiem
+        return binding.root
     }
 
     companion object {
@@ -34,19 +30,21 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            fabAddNote.setOnClickListener {
-                replaceFragment(CreateNoteFragment.newInstance(),true)
-       }
+        binding.fabAddNote.setOnClickListener {
+            replaceFragment(CreateNoteFragment.newInstance(), true)
+        }
     }
 
-    fun replaceFragment(fragment:Fragment, istransition:Boolean){
+    private fun replaceFragment(fragment: Fragment, istransition: Boolean) {
         val fragmentTransition = requireActivity().supportFragmentManager.beginTransaction()
 
-        if (istransition){
-            fragmentTransition.setCustomAnimations(android.R.anim.slide_out_right,android.R.anim.slide_in_left)
+        if (istransition) {
+            fragmentTransition.setCustomAnimations(
+                android.R.anim.slide_out_right,
+                android.R.anim.slide_in_left
+            )
         }
-        fragmentTransition.replace(R.id.Home_layout,fragment).addToBackStack(fragment.javaClass.simpleName).commit()
+        fragmentTransition.replace(R.id.Home_layout, fragment)
+            .addToBackStack(fragment.javaClass.simpleName).commit()
     }
-
-
 }
