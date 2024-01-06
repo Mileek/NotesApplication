@@ -6,8 +6,8 @@ import com.example.notesapplication.entities.Notes
 @Dao
 interface NotesDao {
     //Raw sql queries
-    @get:Query("SELECT * FROM notes ORDER BY noteId DESC")
-    val allNotes: List<Notes>
+    @Query("SELECT * FROM notes ORDER BY noteId DESC")
+    suspend fun getAllNotes(): List<Notes>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNotes(notes: Notes)

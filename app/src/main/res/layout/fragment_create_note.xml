@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/Dark">
@@ -17,7 +16,8 @@
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/White" />
+        app:tint="@color/White"
+        android:contentDescription="TODO" />
 
     <ImageView
         android:id="@+id/imgApprove"
@@ -29,7 +29,8 @@
         android:src="@drawable/ic_approve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/White" />
+        app:tint="@color/White"
+        android:contentDescription="TODO" />
 
     <EditText
         android:id="@+id/edtTitle"
@@ -48,7 +49,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgBack" />
+        app:layout_constraintTop_toBottomOf="@id/imgBack"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/tvDateTime"
@@ -61,9 +63,10 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:paddingStart="10sp"
+        android:paddingEnd="10sp"
         android:textColor="@color/Gray"
         android:textColorHint="@color/Gray"
-        android:textSize="8sp"
+        android:textSize="11sp"
         app:flow_horizontalAlign="center"
         app:flow_verticalAlign="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +101,8 @@
             android:padding="10sp"
             android:textColor="@color/White"
             android:textColorHint="@color/Gray"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:autofillHints="" />
     </LinearLayout>
 
     <EditText
@@ -116,6 +120,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear_subTitleLayout" />
+        app:layout_constraintTop_toBottomOf="@id/linear_subTitleLayout"
+        android:autofillHints="" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
