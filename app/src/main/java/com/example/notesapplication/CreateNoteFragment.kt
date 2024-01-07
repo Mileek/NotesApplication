@@ -54,7 +54,7 @@ class CreateNoteFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (noteId != -1){
+        if (noteId != -1) {
             launch {
                 context?.let {
                     val notes = NotesDataBase.getDatabase(it)?.notesDao()?.getNoteById(noteId)
@@ -78,7 +78,11 @@ class CreateNoteFragment : BaseFragment() {
         binding.tvDateTime.text = "Created at: $currentDate"
 
         binding.imgApprove.setOnClickListener {
-            saveNote()
+            if (noteId != -1) {
+                updateNote()
+            } else {
+                saveNote()
+            }
         }
 
         binding.imgBack.setOnClickListener {
@@ -92,6 +96,27 @@ class CreateNoteFragment : BaseFragment() {
                 requireActivity().supportFragmentManager,
                 "BottomNavigationFragment"
             )
+        }
+    }
+
+    private fun updateNote() {
+        launch {
+            context?.let {
+                val notes = NotesDataBase.getDatabase(it)?.notesDao()?.getNoteById(noteId)
+                notes?.title = binding.edtTitle.text.toString()
+                notes?.subTitle = binding.etNoteSubTitle.text.toString()
+                notes?.noteText = binding.etNoteDescription.text.toString()
+                notes?.dateTime = currentDate
+                notes?.noteColor = selectedNoteColor
+
+                if (notes != null) {
+                    NotesDataBase.getDatabase(it)?.notesDao()?.updateNote(notes)
+                }
+                binding.edtTitle.setText("")
+                binding.etNoteSubTitle.setText("")
+                binding.etNoteDescription.setText("")
+                requireActivity().supportFragmentManager.popBackStack()
+            }
         }
     }
 
@@ -121,6 +146,7 @@ class CreateNoteFragment : BaseFragment() {
                     binding.edtTitle.setText("")
                     binding.etNoteSubTitle.setText("")
                     binding.etNoteDescription.setText("")
+                    requireActivity().supportFragmentManager.popBackStack()
                 }
             }
         }
@@ -140,43 +166,51 @@ class CreateNoteFragment : BaseFragment() {
     }
 
     //Musze odbierac z emitera
-    private var BroadcastReceiver: BroadcastReceiver? = object : BroadcastReceiver(){
+    private var BroadcastReceiver: BroadcastReceiver? = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             var actionColor = intent!!.getStringExtra("actionNoteColor")
 
-            when(actionColor!!){
+            when (actionColor!!) {
                 "Cyan" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
                 }
+
                 "Blue" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
                 }
+
                 "Purple" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
                 }
+
                 "DarkRed" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
                 }
+
                 "LightRed" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
                 }
+
                 "Orange" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
                 }
+
                 "Yellow" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
                 }
+
                 "Green" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
                 }
+
                 else -> {
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor("#FFFFFF"))
                 }
