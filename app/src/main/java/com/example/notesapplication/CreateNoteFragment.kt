@@ -24,6 +24,13 @@ class CreateNoteFragment : BaseFragment() {
     private lateinit var binding: FragmentCreateNoteBinding
     var currentDate: String? = null
     var selectedNoteColor = "#00BCD4"
+    private var noteId = -1
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        noteId = requireArguments().getInt("noteId", -1)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +53,19 @@ class CreateNoteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (noteId != -1){
+            launch {
+                context?.let {
+                    val notes = NotesDataBase.getDatabase(it)?.notesDao()?.getNoteById(noteId)
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(notes?.noteColor))
+                    //ToString jest nie potrzebny, bo i tak jest stringiem
+                    binding.edtTitle.setText(notes?.title.toString())
+                    binding.etNoteSubTitle.setText(notes?.subTitle.toString())
+                    binding.etNoteDescription.setText(notes?.noteText.toString())
+                }
+            }
+        }
 
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
             BroadcastReceiver!!,
