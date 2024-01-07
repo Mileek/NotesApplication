@@ -1,5 +1,6 @@
 package com.example.notesapplication.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,12 @@ class NotesAdapter(private val notesList: List<Notes>?) :
         holder.binding.noteTitle.text = notesList?.get(position)?.title
         holder.binding.noteDescription.text = notesList?.get(position)?.noteText
         holder.binding.noteDate.text = notesList?.get(position)?.dateTime
+
+        if (currentNote!!.noteColor != null) {
+            holder.binding.noteView.setCardBackgroundColor(Color.parseColor((notesList?.get(position)?.noteColor)))
+        } else {
+            holder.binding.noteView.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
+        }
     }
 
     class NotesViewHolder(val binding: NotesRvListBinding) : RecyclerView.ViewHolder(binding.root)

@@ -1,5 +1,10 @@
 package com.example.notesapplication
 
+import android.graphics.Color
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import com.example.notesapplication.databinding.FragmentCreateNoteBinding
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +12,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.notesapplication.database.NotesDataBase
 import com.example.notesapplication.entities.Notes
+import com.example.notesapplication.utilities.NotesBottomNavigationFragment
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -16,7 +23,7 @@ import java.util.Date
 class CreateNoteFragment : BaseFragment() {
     private lateinit var binding: FragmentCreateNoteBinding
     var currentDate: String? = null
-
+    var selectedNoteColor = "#00BCD4"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,7 +46,13 @@ class CreateNoteFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+            BroadcastReceiver!!,
+            IntentFilter("bottom_action")
+        )
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
         currentDate = sdf.format(Date())
 
         binding.tvDateTime.text = "Created at: $currentDate"
@@ -49,9 +62,17 @@ class CreateNoteFragment : BaseFragment() {
         }
 
         binding.imgBack.setOnClickListener {
-            replaceFragment(HomeFragment.newInstance(), false)
+            //replaceFragment(HomeFragment.newInstance(), false)
+            requireActivity().supportFragmentManager?.popBackStack()
         }
 
+        binding.imgMoreNavi.setOnClickListener {
+            var notesBottomNavigationFragment = NotesBottomNavigationFragment.newInstance()
+            notesBottomNavigationFragment.show(
+                requireActivity().supportFragmentManager,
+                "BottomNavigationFragment"
+            )
+        }
     }
 
     private fun saveNote() {
@@ -74,6 +95,7 @@ class CreateNoteFragment : BaseFragment() {
                 notes.subTitle = binding.etNoteSubTitle.text.toString()
                 notes.noteText = binding.etNoteDescription.text.toString()
                 notes.dateTime = currentDate
+                notes.noteColor = selectedNoteColor
                 context?.let {
                     NotesDataBase.getDatabase(it)?.notesDao()?.insertNotes(notes)
                     binding.edtTitle.setText("")
@@ -95,5 +117,56 @@ class CreateNoteFragment : BaseFragment() {
         }
         fragmentTransition.replace(R.id.Home_layout, fragment)
             .addToBackStack(fragment.javaClass.simpleName).commit()
+    }
+
+    //Musze odbierac z emitera
+    private var BroadcastReceiver: BroadcastReceiver? = object : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            var actionColor = intent!!.getStringExtra("actionNoteColor")
+
+            when(actionColor!!){
+                "Cyan" -> {
+                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+                "Blue" -> {
+                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+                "Purple" -> {
+                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+                "DarkRed" -> {
+                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+                "LightRed" -> {
+                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+                "Orange" -> {
+                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+                "Yellow" -> {
+                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+                "Green" -> {
+                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+                else -> {
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        //Odlaczam sie zeby nie bylo wyciekow pamieci
+        LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(BroadcastReceiver!!)
+        super.onDestroy()
     }
 }
