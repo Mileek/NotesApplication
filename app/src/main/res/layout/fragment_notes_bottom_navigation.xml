@@ -25,20 +25,6 @@
             android:src="@drawable/ic_approve"
             app:tint="@color/White" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
-            android:src="@drawable/ic_image"
-            app:tint="@color/White" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_link"
-            app:tint="@color/White" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -57,18 +43,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5sp"
-        android:orientation="horizontal">
-<!--1-->
+        android:orientation="horizontal"
+        android:padding="5sp">
+        <!--1-->
         <FrameLayout
             android:id="@+id/fNote1"
-            android:paddingStart="5sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="5sp">
+
             <View
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/note_color_1" />
+
             <ImageView
                 android:id="@+id/imgNote1"
                 android:layout_width="15sp"
@@ -79,13 +67,15 @@
         <!--2-->
         <FrameLayout
             android:id="@+id/fNote2"
-            android:paddingStart="5sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="5sp">
+
             <View
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/note_color_2" />
+
             <ImageView
                 android:id="@+id/imgNote2"
                 android:layout_width="15sp"
@@ -96,13 +86,15 @@
         <!--3-->
         <FrameLayout
             android:id="@+id/fNote3"
-            android:paddingStart="5sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="5sp">
+
             <View
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/note_color_3" />
+
             <ImageView
                 android:id="@+id/imgNote3"
                 android:layout_width="15sp"
@@ -113,13 +105,15 @@
         <!--4-->
         <FrameLayout
             android:id="@+id/fNote4"
-            android:paddingStart="5sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="5sp">
+
             <View
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/note_color_4" />
+
             <ImageView
                 android:id="@+id/imgNote4"
                 android:layout_width="15sp"
@@ -130,13 +124,15 @@
         <!--5-->
         <FrameLayout
             android:id="@+id/fNote5"
-            android:paddingStart="5sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="5sp">
+
             <View
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/note_color_5" />
+
             <ImageView
                 android:id="@+id/imgNote5"
                 android:layout_width="15sp"
@@ -147,13 +143,15 @@
         <!--6-->
         <FrameLayout
             android:id="@+id/fNote6"
-            android:paddingStart="5sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="5sp">
+
             <View
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/note_color_6" />
+
             <ImageView
                 android:id="@+id/imgNote6"
                 android:layout_width="15sp"
@@ -164,13 +162,15 @@
         <!--7-->
         <FrameLayout
             android:id="@+id/fNote7"
-            android:paddingStart="5sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="5sp">
+
             <View
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/note_color_7" />
+
             <ImageView
                 android:id="@+id/imgNote7"
                 android:layout_width="15sp"
@@ -181,13 +181,15 @@
         <!--8-->
         <FrameLayout
             android:id="@+id/fNote8"
-            android:paddingStart="5sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="5sp">
+
             <View
                 android:layout_width="25sp"
                 android:layout_height="25sp"
                 android:background="@drawable/note_color_8" />
+
             <ImageView
                 android:id="@+id/imgNote8"
                 android:layout_width="15sp"
@@ -198,5 +200,32 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/deleteNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0sp"
+        android:background="@color/Dark"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
+            android:layout_marginEnd="10sp"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/White" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete Note"
+            android:textColor="@color/White"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 </LinearLayout>

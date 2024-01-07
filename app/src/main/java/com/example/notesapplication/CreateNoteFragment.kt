@@ -91,7 +91,7 @@ class CreateNoteFragment : BaseFragment() {
         }
 
         binding.imgMoreNavi.setOnClickListener {
-            var notesBottomNavigationFragment = NotesBottomNavigationFragment.newInstance()
+            val notesBottomNavigationFragment = NotesBottomNavigationFragment.newInstance(noteId)
             notesBottomNavigationFragment.show(
                 requireActivity().supportFragmentManager,
                 "BottomNavigationFragment"
@@ -148,6 +148,15 @@ class CreateNoteFragment : BaseFragment() {
                     binding.etNoteDescription.setText("")
                     requireActivity().supportFragmentManager.popBackStack()
                 }
+            }
+        }
+    }
+
+    private fun deleteNote() {
+        launch {
+            context?.let {
+                NotesDataBase.getDatabase(it)?.notesDao()?.deleteNoteById(noteId)
+                requireActivity().supportFragmentManager.popBackStack()
             }
         }
     }
@@ -209,6 +218,11 @@ class CreateNoteFragment : BaseFragment() {
                 "Green" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                }
+
+                "Delete" -> {
+                    //Delete Item
+                    deleteNote()
                 }
 
                 else -> {

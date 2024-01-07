@@ -14,23 +14,27 @@ import com.example.notesapplication.databinding.FragmentNotesBottomNavigationBin
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class NotesBottomNavigationFragment :BottomSheetDialogFragment() {
+class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentNotesBottomNavigationBinding
     var selectedNoteColor = "#00BCD4"
 
     companion object {
-        fun newInstance(): NotesBottomNavigationFragment{
+        var noteId = -1
+        fun newInstance(id: Int): NotesBottomNavigationFragment {
             val args = Bundle()
             val fragment = NotesBottomNavigationFragment()
             fragment.arguments = args
+            noteId = id
             return fragment
         }
     }
+
     override fun setupDialog(dialog: Dialog, style: Int) {
         super.setupDialog(dialog, style)
 
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_notes_bottom_navigation, null)
+        val view =
+            LayoutInflater.from(context).inflate(R.layout.fragment_notes_bottom_navigation, null)
         dialog.setContentView(view)
 
         val layoutParams = (view.parent as View).layoutParams as CoordinatorLayout.LayoutParams
@@ -53,6 +57,7 @@ class NotesBottomNavigationFragment :BottomSheetDialogFragment() {
                         }
                     }
                 }
+
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
 
@@ -73,6 +78,12 @@ class NotesBottomNavigationFragment :BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (noteId  != -1){
+            binding.deleteNote.visibility = View.VISIBLE
+        }
+        else{
+            binding.deleteNote.visibility = View.GONE
+        }
         setListeners()
     }
 
@@ -205,5 +216,13 @@ class NotesBottomNavigationFragment :BottomSheetDialogFragment() {
             intent.putExtra("selectedColor", selectedNoteColor)
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
         }
+
+        binding.deleteNote.setOnClickListener {
+            val intent = Intent("bottom_action")
+            intent.putExtra("actionNoteColor", "Delete")
+            LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
+            dismiss()
+        }
     }
+
 }
