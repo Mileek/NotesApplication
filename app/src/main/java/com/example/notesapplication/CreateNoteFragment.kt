@@ -135,7 +135,7 @@ class CreateNoteFragment : BaseFragment() {
 
         launch {
             context?.let {
-                var notes = Notes()
+                val notes = Notes()
                 notes.title = binding.edtTitle.text.toString()
                 notes.subTitle = binding.etNoteSubTitle.text.toString()
                 notes.noteText = binding.etNoteDescription.text.toString()
@@ -179,6 +179,8 @@ class CreateNoteFragment : BaseFragment() {
         override fun onReceive(context: Context?, intent: Intent?) {
             var actionColor = intent!!.getStringExtra("actionNoteColor")
 
+            //Akcja nie powinna się tak nazywać, ale na początku miała tylko za zadanie obsługiwać kolory,
+            //potem to się zmieniło, ale nazwa została
             when (actionColor!!) {
                 "Cyan" -> {
                     selectedNoteColor = intent.getStringExtra("selectedColor")!!
