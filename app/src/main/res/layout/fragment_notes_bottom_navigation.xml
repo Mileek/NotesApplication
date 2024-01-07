@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/purple_500"
+    android:orientation="vertical"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Dark"
+        android:orientation="horizontal"
+        android:padding="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_approve"
+            app:tint="@color/White" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:src="@drawable/ic_image"
+            app:tint="@color/White" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_link"
+            app:tint="@color/White" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:src="@drawable/ic_more"
+                app:tint="@color/White" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5sp"
+        android:orientation="horizontal">
+<!--1-->
+        <FrameLayout
+            android:id="@+id/fNote1"
+            android:paddingStart="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/note_color_1" />
+            <ImageView
+                android:id="@+id/imgNote1"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                app:tint="@color/White" />
+        </FrameLayout>
+        <!--2-->
+        <FrameLayout
+            android:id="@+id/fNote2"
+            android:paddingStart="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/note_color_2" />
+            <ImageView
+                android:id="@+id/imgNote2"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                app:tint="@color/White" />
+        </FrameLayout>
+        <!--3-->
+        <FrameLayout
+            android:id="@+id/fNote3"
+            android:paddingStart="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/note_color_3" />
+            <ImageView
+                android:id="@+id/imgNote3"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                app:tint="@color/White" />
+        </FrameLayout>
+        <!--4-->
+        <FrameLayout
+            android:id="@+id/fNote4"
+            android:paddingStart="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/note_color_4" />
+            <ImageView
+                android:id="@+id/imgNote4"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                app:tint="@color/White" />
+        </FrameLayout>
+        <!--5-->
+        <FrameLayout
+            android:id="@+id/fNote5"
+            android:paddingStart="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/note_color_5" />
+            <ImageView
+                android:id="@+id/imgNote5"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                app:tint="@color/White" />
+        </FrameLayout>
+        <!--6-->
+        <FrameLayout
+            android:id="@+id/fNote6"
+            android:paddingStart="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/note_color_6" />
+            <ImageView
+                android:id="@+id/imgNote6"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                app:tint="@color/White" />
+        </FrameLayout>
+        <!--7-->
+        <FrameLayout
+            android:id="@+id/fNote7"
+            android:paddingStart="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/note_color_7" />
+            <ImageView
+                android:id="@+id/imgNote7"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                app:tint="@color/White" />
+        </FrameLayout>
+        <!--8-->
+        <FrameLayout
+            android:id="@+id/fNote8"
+            android:paddingStart="5sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:background="@drawable/note_color_8" />
+            <ImageView
+                android:id="@+id/imgNote8"
+                android:layout_width="15sp"
+                android:layout_height="15sp"
+                android:layout_gravity="center"
+                app:tint="@color/White" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
