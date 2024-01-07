@@ -9,9 +9,13 @@ import com.example.notesapplication.entities.Notes
 
 class NotesAdapter() :
     RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
-        var listener: OnItemClickListener? = null
+    private var listener: OnItemClickListener? = null
+    private var arrayNotesList = ArrayList<Notes>()
 
-        var arrayNotesList = ArrayList<Notes>()
+    companion object {
+        private const val DEFAULT_COLOR_WHITE = "#FFFFFF"
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val binding = NotesRvListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NotesViewHolder(binding)
@@ -22,7 +26,9 @@ class NotesAdapter() :
     }
 
     public fun setData(notesList: List<Notes>?) {
-        arrayNotesList = notesList as ArrayList<Notes>
+        arrayNotesList.clear()
+        arrayNotesList.addAll(notesList ?: emptyList())
+        notifyDataSetChanged()
     }
 
     fun setOnClickListener(passedListener: OnItemClickListener) {
@@ -30,16 +36,14 @@ class NotesAdapter() :
     }
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
-        val currentNote = arrayNotesList?.get(position)
-        holder.binding.noteTitle.text = arrayNotesList?.get(position)?.title
-        holder.binding.noteDescription.text = arrayNotesList?.get(position)?.noteText
-        holder.binding.noteDate.text = arrayNotesList?.get(position)?.dateTime
+        val currentNote = arrayNotesList[position]
+        holder.binding.noteTitle.text = arrayNotesList[position].title
+        holder.binding.noteDescription.text = arrayNotesList[position].noteText
+        holder.binding.noteDate.text = arrayNotesList[position].dateTime
 
-        if (currentNote!!.noteColor != null) {
-            holder.binding.noteView.setCardBackgroundColor(Color.parseColor((arrayNotesList?.get(position)?.noteColor)))
-        } else {
-            holder.binding.noteView.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
-        }
+        holder.binding.noteView.setCardBackgroundColor(
+            Color.parseColor(currentNote.noteColor ?: DEFAULT_COLOR_WHITE)
+        )
 
         holder.binding.noteView.setOnClickListener {
             listener!!.onItemClick(currentNote.noteId!!)

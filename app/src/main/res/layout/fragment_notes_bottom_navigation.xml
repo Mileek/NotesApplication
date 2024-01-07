@@ -4,53 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/purple_500"
+    android:background="@color/blue_900"
     android:orientation="vertical"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <LinearLayout
-        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Dark"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:padding="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_approve"
-            app:tint="@color/White" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:src="@drawable/ic_more"
-                app:tint="@color/White" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5sp">
+        android:padding="15sp">
         <!--1-->
         <FrameLayout
             android:id="@+id/fNote1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp">
+            android:paddingStart="10sp"
+            tools:ignore="RtlSymmetry">
 
             <View
                 android:layout_width="25sp"
@@ -69,7 +39,8 @@
             android:id="@+id/fNote2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp">
+            android:paddingStart="10sp"
+            tools:ignore="RtlSymmetry">
 
             <View
                 android:layout_width="25sp"
@@ -88,7 +59,8 @@
             android:id="@+id/fNote3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp">
+            android:paddingStart="10sp"
+            tools:ignore="RtlSymmetry">
 
             <View
                 android:layout_width="25sp"
@@ -107,7 +79,8 @@
             android:id="@+id/fNote4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp">
+            android:paddingStart="10sp"
+            tools:ignore="RtlSymmetry">
 
             <View
                 android:layout_width="25sp"
@@ -126,7 +99,8 @@
             android:id="@+id/fNote5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp">
+            android:paddingStart="10sp"
+            tools:ignore="RtlSymmetry">
 
             <View
                 android:layout_width="25sp"
@@ -145,7 +119,8 @@
             android:id="@+id/fNote6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp">
+            android:paddingStart="10sp"
+            tools:ignore="RtlSymmetry">
 
             <View
                 android:layout_width="25sp"
@@ -164,7 +139,8 @@
             android:id="@+id/fNote7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp">
+            android:paddingStart="10sp"
+            tools:ignore="RtlSymmetry">
 
             <View
                 android:layout_width="25sp"
@@ -183,7 +159,8 @@
             android:id="@+id/fNote8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp">
+            android:paddingStart="10sp"
+            tools:ignore="RtlSymmetry">
 
             <View
                 android:layout_width="25sp"

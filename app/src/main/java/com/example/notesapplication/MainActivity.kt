@@ -12,11 +12,16 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(HomeFragment.newInstance(), true)
     }
 
-    private fun replaceFragment(fragment: Fragment, isTransition: Boolean) {
+    private fun replaceFragment(fragment: Fragment, isTransition: Boolean = true) {
         val fragmentTransition = supportFragmentManager.beginTransaction()
         if (isTransition) {
-            fragmentTransition.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+            fragmentTransition.setCustomAnimations(
+                android.R.anim.slide_out_right,
+                android.R.anim.slide_in_left
+            )
         }
-        fragmentTransition.replace(R.id.Home_layout, fragment).addToBackStack(fragment.javaClass.simpleName).commit()
+        fragmentTransition.replace(R.id.Home_layout, fragment)
+            .addToBackStack(fragment.javaClass.simpleName).commit()
     }
+
 }

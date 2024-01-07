@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(tableName = "Notes")
-class Notes: Serializable {
+class Notes : Serializable {
     @PrimaryKey(autoGenerate = true)
     var noteId: Int? = null
 
@@ -22,17 +22,19 @@ class Notes: Serializable {
     @ColumnInfo(name = "noteText")
     var noteText: String? = null
 
-    @ColumnInfo(name = "imgPath")
-    var imgPath: String? = null
-
-    @ColumnInfo(name = "webLink")
-    var webLink: String ? = null
-
     @ColumnInfo(name = "noteColor")
     var noteColor: String? = null
 
     override fun toString(): String {
         return "$title : $dateTime"
     }
+
+    //Obsolete, do przeniesienia z wpf
+    @ColumnInfo(name = "imgPath")
+    var imgPath: String? = null
+
+    @ColumnInfo(name = "webLink")
+    var webLink: String? = null
+
 }
 
