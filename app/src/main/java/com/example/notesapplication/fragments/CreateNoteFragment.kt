@@ -1,5 +1,6 @@
-package com.example.notesapplication
+package com.example.notesapplication.fragments
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.example.notesapplication.R
 import com.example.notesapplication.database.NotesDataBase
 import com.example.notesapplication.entities.Notes
 import com.example.notesapplication.utilities.NotesBottomNavigationFragment
@@ -21,10 +23,11 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 class CreateNoteFragment : BaseFragment() {
-    private lateinit var binding: FragmentCreateNoteBinding
-    var currentDate: String? = null
-    var selectedNoteColor = "#00BCD4"
-    private var noteId = -1
+    private lateinit var binding: FragmentCreateNoteBinding // Zmienna do przechowywania powiązania z fragmentem
+    var currentDate: String? = null // Zmienna przechowująca bieżącą datę
+    var selectedNoteColor = "#00BCD4" // Kolor domyślny dla notatki
+    private var noteId = -1 // Identyfikator notatki, początkowo ustawiony na -1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,32 +54,37 @@ class CreateNoteFragment : BaseFragment() {
             }
     }
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Wyświetlanie danych notatki, jeśli noteId jest różny -1
         if (noteId != -1) {
             launch {
                 context?.let {
-                    val notes = NotesDataBase.getDatabase(it)?.notesDao()?.getNoteById(noteId)
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(notes?.noteColor))
-                    //ToString jest nie potrzebny, bo i tak jest stringiem
-                    binding.edtTitle.setText(notes?.title.toString())
-                    binding.etNoteSubTitle.setText(notes?.subTitle.toString())
-                    binding.etNoteDescription.setText(notes?.noteText.toString())
+                    val notes = NotesDataBase.getDatabase(it).notesDao().getNoteById(noteId)
+                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(notes.noteColor))
+                    binding.edtTitle.setText(notes.title)
+                    binding.etNoteSubTitle.setText(notes.subTitle)
+                    binding.etNoteDescription.setText(notes.noteText)
                 }
             }
         }
 
+        // Rejestracja odbiornika do obsługi akcji z dolnej nawigacji
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
             BroadcastReceiver!!,
             IntentFilter("bottom_action")
         )
+
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
         currentDate = sdf.format(Date())
 
+        // Ustawianie tekstu w widoku daty i czasu
         binding.tvDateTime.text = "Created at: $currentDate"
 
+        // Obsługa zatwierdzania notatki
         binding.imgApprove.setOnClickListener {
             if (noteId != -1) {
                 updateNote()
@@ -85,11 +93,13 @@ class CreateNoteFragment : BaseFragment() {
             }
         }
 
+        // Obsługa powrotu do poprzedniego ekranu
         binding.imgBack.setOnClickListener {
             //replaceFragment(HomeFragment.newInstance(), false)
             requireActivity().supportFragmentManager?.popBackStack()
         }
 
+        // Obsługa otwierania dolnej nawigacji
         binding.imgMoreNavi.setOnClickListener {
             val notesBottomNavigationFragment = NotesBottomNavigationFragment.newInstance(noteId)
             notesBottomNavigationFragment.show(
@@ -102,16 +112,14 @@ class CreateNoteFragment : BaseFragment() {
     private fun updateNote() {
         launch {
             context?.let {
-                val notes = NotesDataBase.getDatabase(it)?.notesDao()?.getNoteById(noteId)
-                notes?.title = binding.edtTitle.text.toString()
-                notes?.subTitle = binding.etNoteSubTitle.text.toString()
-                notes?.noteText = binding.etNoteDescription.text.toString()
-                notes?.dateTime = currentDate
-                notes?.noteColor = selectedNoteColor
+                val notes = NotesDataBase.getDatabase(it).notesDao().getNoteById(noteId)
+                notes.title = binding.edtTitle.text.toString()
+                notes.subTitle = binding.etNoteSubTitle.text.toString()
+                notes.noteText = binding.etNoteDescription.text.toString()
+                notes.dateTime = currentDate
+                notes.noteColor = selectedNoteColor
 
-                if (notes != null) {
-                    NotesDataBase.getDatabase(it)?.notesDao()?.updateNote(notes)
-                }
+                NotesDataBase.getDatabase(it).notesDao().updateNote(notes)
                 binding.edtTitle.setText("")
                 binding.etNoteSubTitle.setText("")
                 binding.etNoteDescription.setText("")

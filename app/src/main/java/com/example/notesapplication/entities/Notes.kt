@@ -28,13 +28,5 @@ class Notes : Serializable {
     override fun toString(): String {
         return "$title : $dateTime"
     }
-
-    //Obsolete, do przeniesienia z wpf
-    @ColumnInfo(name = "imgPath")
-    var imgPath: String? = null
-
-    @ColumnInfo(name = "webLink")
-    var webLink: String? = null
-
 }
 

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.notesapplication.R
-import com.example.notesapplication.databinding.FragmentCreateNoteBinding
 import com.example.notesapplication.databinding.FragmentNotesBottomNavigationBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,7 +20,9 @@ class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
     var selectedNoteColor = "#00BCD4"
 
     companion object {
-        var noteId = -1
+        var noteId = -1 // Id notatki, początkowo ustawiony na -1
+
+        // Tworzenie nowej instancji fragmentu z przekazanym identyfikatorem
         fun newInstance(id: Int): NotesBottomNavigationFragment {
             val args = Bundle()
             val fragment = NotesBottomNavigationFragment()
@@ -88,6 +89,7 @@ class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
         setListeners()
     }
 
+    //Proszę nie zwracać uwagi na ten powtarzający się brzydki kod :(
     private fun setListeners() {
         binding.fNote1.setOnClickListener {
             binding.imgNote1.setImageResource(R.drawable.ic_confirm)

@@ -19,12 +19,12 @@
             android:id="@+id/fNote1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
+            android:paddingStart="5sp"
             tools:ignore="RtlSymmetry">
 
             <View
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:background="@drawable/note_color_1" />
 
             <ImageView
@@ -39,12 +39,12 @@
             android:id="@+id/fNote2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
+            android:paddingStart="5sp"
             tools:ignore="RtlSymmetry">
 
             <View
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:background="@drawable/note_color_2" />
 
             <ImageView
@@ -59,12 +59,12 @@
             android:id="@+id/fNote3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
+            android:paddingStart="5sp"
             tools:ignore="RtlSymmetry">
 
             <View
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:background="@drawable/note_color_3" />
 
             <ImageView
@@ -79,12 +79,12 @@
             android:id="@+id/fNote4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
+            android:paddingStart="5sp"
             tools:ignore="RtlSymmetry">
 
             <View
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:background="@drawable/note_color_4" />
 
             <ImageView
@@ -99,12 +99,12 @@
             android:id="@+id/fNote5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
+            android:paddingStart="5sp"
             tools:ignore="RtlSymmetry">
 
             <View
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:background="@drawable/note_color_5" />
 
             <ImageView
@@ -119,12 +119,12 @@
             android:id="@+id/fNote6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
+            android:paddingStart="5sp"
             tools:ignore="RtlSymmetry">
 
             <View
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:background="@drawable/note_color_6" />
 
             <ImageView
@@ -139,12 +139,12 @@
             android:id="@+id/fNote7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
+            android:paddingStart="5sp"
             tools:ignore="RtlSymmetry">
 
             <View
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:background="@drawable/note_color_7" />
 
             <ImageView
@@ -159,12 +159,12 @@
             android:id="@+id/fNote8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="10sp"
+            android:paddingStart="5sp"
             tools:ignore="RtlSymmetry">
 
             <View
-                android:layout_width="25sp"
-                android:layout_height="25sp"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
                 android:background="@drawable/note_color_8" />
 
             <ImageView

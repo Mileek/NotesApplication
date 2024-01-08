@@ -6,8 +6,10 @@
     </style>
 <!--Na przyszłość: w tym pliku możemy zdefiniować style dla różnych wersji Androida-->
     <style name="Theme.NotesApplication" parent="AppLightTheme" />
+<!--    Nie da się tego zrobić jako resource, chyba jest to błędem AndroidStudio ?-->
     <style name="ThemeOverlay.search" parent="AppLightTheme">
         <item name="android:editTextColor">@color/White</item>
         <item name="android:textColorHint">@color/Gray</item>
+        <item name="android:textSize">20sp</item>
     </style>
 </resources>

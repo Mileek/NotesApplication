@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    Niestety nie działa, do poprawy jeśli możliwe-->
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="android:queryHint">Search...(translate...)</item>
         <item name="android:textColorHint">@color/Gray</item>

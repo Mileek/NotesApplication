@@ -167,4 +167,16 @@
         android:pathData="M79,19L79,89"
         android:strokeWidth="0.8"
         android:strokeColor="#33FFFFFF" />
+<!--    Inicjały Kamil Kaszuba-->
+    <path
+        android:fillColor="#000000"
+        android:pathData="M30.5 62.5 30.5 25M30.5 47 47.5 25M35 42.5 47.5 62.5"
+        android:strokeWidth="5"
+        android:strokeColor="#000000" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M55.5 62.5 55.5 25M55.5 47 72.5 25M60 42.5 72.5 62.5"
+        android:strokeWidth="5"
+        android:strokeColor="#000000" />
+
 </vector>

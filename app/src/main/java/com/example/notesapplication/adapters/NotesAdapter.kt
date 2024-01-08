@@ -1,4 +1,4 @@
-package com.example.notesapplication.adapter
+package com.example.notesapplication.adapters
 
 import android.graphics.Color
 import android.view.LayoutInflater

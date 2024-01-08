@@ -1,4 +1,4 @@
-package com.example.notesapplication
+package com.example.notesapplication.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.notesapplication.adapter.NotesAdapter
+import com.example.notesapplication.R
+import com.example.notesapplication.adapters.NotesAdapter
 import com.example.notesapplication.database.NotesDataBase
 import com.example.notesapplication.databinding.FragmentHomeBinding
 import com.example.notesapplication.entities.Notes
