@@ -25,6 +25,9 @@ class Notes : Serializable {
     @ColumnInfo(name = "noteColor")
     var noteColor: String? = null
 
+    @ColumnInfo(name = "imagePath")
+    var imagePath: String? = null
+
     override fun toString(): String {
         return "$title : $dateTime"
     }

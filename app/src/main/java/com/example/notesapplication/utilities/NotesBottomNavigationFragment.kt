@@ -1,28 +1,39 @@
 package com.example.notesapplication.utilities
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.notesapplication.R
 import com.example.notesapplication.databinding.FragmentNotesBottomNavigationBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.io.File
+import java.io.FileOutputStream
 
 class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentNotesBottomNavigationBinding
     var selectedNoteColor = "#00BCD4"
+    private val REQUEST_IMAGE_CAPTURE = 1
+    private val REQUEST_CAMERA_PERMISSION = 100
 
     companion object {
-        var noteId = -1 // Id notatki, początkowo ustawiony na -1
+        var noteId = -1
 
-        // Tworzenie nowej instancji fragmentu z przekazanym identyfikatorem
         fun newInstance(id: Int): NotesBottomNavigationFragment {
             val args = Bundle()
             val fragment = NotesBottomNavigationFragment()
@@ -35,9 +46,7 @@ class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
     @SuppressLint("RestrictedApi")
     override fun setupDialog(dialog: Dialog, style: Int) {
         super.setupDialog(dialog, style)
-
-        val view =
-            LayoutInflater.from(context).inflate(R.layout.fragment_notes_bottom_navigation, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.fragment_notes_bottom_navigation, null)
         dialog.setContentView(view)
 
         val layoutParams = (view.parent as View).layoutParams as CoordinatorLayout.LayoutParams
@@ -46,25 +55,14 @@ class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
         if (behavior != null && behavior is BottomSheetBehavior<*>) {
             behavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    var state = ""
-                    //Ustaw stan
-                    when (newState) {
-                        BottomSheetBehavior.STATE_DRAGGING -> state = "DRAGGING"
-                        BottomSheetBehavior.STATE_SETTLING -> state = "SETTLING"
-                        BottomSheetBehavior.STATE_EXPANDED -> state = "EXPANDED"
-                        BottomSheetBehavior.STATE_COLLAPSED -> state = "COLLAPSED"
-                        BottomSheetBehavior.STATE_HIDDEN -> {
-                            state = "HIDDEN"
-                            dismiss()
-                            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-                        }
+                    if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                        dismiss()
+                        behavior.state = BottomSheetBehavior.STATE_COLLAPSED
                     }
                 }
 
                 override fun onSlide(bottomSheet: View, slideOffset: Float) {}
             })
-
-
         }
     }
 
@@ -74,8 +72,6 @@ class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentNotesBottomNavigationBinding.inflate(inflater, container, false)
-
-        // Ustaw widok związany z bindingiem
         return binding.root
     }
 
@@ -89,96 +85,14 @@ class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
         setListeners()
     }
 
-    //Proszę nie zwracać uwagi na ten powtarzający się brzydki kod :(
     private fun setListeners() {
-        binding.fNote1.setOnClickListener {
-            binding.imgNote1.setImageResource(R.drawable.ic_confirm)
-            binding.imgNote2.setImageResource(0)
-            binding.imgNote3.setImageResource(0)
-            binding.imgNote4.setImageResource(0)
-            binding.imgNote5.setImageResource(0)
-            binding.imgNote6.setImageResource(0)
-            binding.imgNote7.setImageResource(0)
-            binding.imgNote8.setImageResource(0)
-            selectNoteColor("#00BCD4", "Cyan")
-        }
-        binding.fNote2.setOnClickListener {
-            binding.imgNote1.setImageResource(0)
-            binding.imgNote2.setImageResource(R.drawable.ic_confirm)
-            binding.imgNote3.setImageResource(0)
-            binding.imgNote4.setImageResource(0)
-            binding.imgNote5.setImageResource(0)
-            binding.imgNote6.setImageResource(0)
-            binding.imgNote7.setImageResource(0)
-            binding.imgNote8.setImageResource(0)
-            selectNoteColor("#3F51B5", "Blue")
-        }
-        binding.fNote3.setOnClickListener {
-            binding.imgNote1.setImageResource(0)
-            binding.imgNote2.setImageResource(0)
-            binding.imgNote3.setImageResource(R.drawable.ic_confirm)
-            binding.imgNote4.setImageResource(0)
-            binding.imgNote5.setImageResource(0)
-            binding.imgNote6.setImageResource(0)
-            binding.imgNote7.setImageResource(0)
-            binding.imgNote8.setImageResource(0)
-            selectNoteColor("#673AB7", "Purple")
-        }
-        binding.fNote4.setOnClickListener {
-            binding.imgNote1.setImageResource(0)
-            binding.imgNote2.setImageResource(0)
-            binding.imgNote3.setImageResource(0)
-            binding.imgNote4.setImageResource(R.drawable.ic_confirm)
-            binding.imgNote5.setImageResource(0)
-            binding.imgNote6.setImageResource(0)
-            binding.imgNote7.setImageResource(0)
-            binding.imgNote8.setImageResource(0)
-            selectNoteColor("#E91E63", "DarkRed")
-        }
-        binding.fNote5.setOnClickListener {
-            binding.imgNote1.setImageResource(0)
-            binding.imgNote2.setImageResource(0)
-            binding.imgNote3.setImageResource(0)
-            binding.imgNote4.setImageResource(0)
-            binding.imgNote5.setImageResource(R.drawable.ic_confirm)
-            binding.imgNote6.setImageResource(0)
-            binding.imgNote7.setImageResource(0)
-            binding.imgNote8.setImageResource(0)
-            selectNoteColor("#F44336", "LightRed")
-        }
-        binding.fNote6.setOnClickListener {
-            binding.imgNote1.setImageResource(0)
-            binding.imgNote2.setImageResource(0)
-            binding.imgNote3.setImageResource(0)
-            binding.imgNote4.setImageResource(0)
-            binding.imgNote5.setImageResource(0)
-            binding.imgNote6.setImageResource(R.drawable.ic_confirm)
-            binding.imgNote7.setImageResource(0)
-            binding.imgNote8.setImageResource(0)
-            selectNoteColor("#FF9800", "Orange")
-        }
-        binding.fNote7.setOnClickListener {
-            binding.imgNote1.setImageResource(0)
-            binding.imgNote2.setImageResource(0)
-            binding.imgNote3.setImageResource(0)
-            binding.imgNote4.setImageResource(0)
-            binding.imgNote5.setImageResource(0)
-            binding.imgNote6.setImageResource(0)
-            binding.imgNote7.setImageResource(R.drawable.ic_confirm)
-            binding.imgNote8.setImageResource(0)
-            selectNoteColor("#FFEB3B", "Yellow")
-        }
-        binding.fNote8.setOnClickListener {
-            binding.imgNote1.setImageResource(0)
-            binding.imgNote2.setImageResource(0)
-            binding.imgNote3.setImageResource(0)
-            binding.imgNote4.setImageResource(0)
-            binding.imgNote5.setImageResource(0)
-            binding.imgNote6.setImageResource(0)
-            binding.imgNote7.setImageResource(0)
-            binding.imgNote8.setImageResource(R.drawable.ic_confirm)
-            selectNoteColor("#4CAF50", "Green")
-        }
+        binding.fNote1.setOnClickListener { selectNoteColor("#00BCD4", "Cyan") }
+        binding.fNote2.setOnClickListener { selectNoteColor("#3F51B5", "Blue") }
+        binding.fNote3.setOnClickListener { selectNoteColor("#673AB7", "Purple") }
+        binding.fNote4.setOnClickListener { selectNoteColor("#E91E63", "DarkRed") }
+        binding.fNote5.setOnClickListener { selectNoteColor("#F44336", "LightRed") }
+        binding.fNote6.setOnClickListener { selectNoteColor("#FF9800", "Orange") }
+        binding.fNote7.setOnClickListener { selectNoteColor("#FFEB3B", "Yellow") }
 
         binding.deleteNote.setOnClickListener {
             val intent = Intent("bottom_action")
@@ -186,11 +100,72 @@ class NotesBottomNavigationFragment : BottomSheetDialogFragment() {
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
             dismiss()
         }
+
+        binding.fPhoto.setOnClickListener {
+            checkCameraPermission()
+        }
+    }
+
+// Sprawdza, czy aplikacja ma uprawnienia do korzystania z kamery
+    private fun checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED) {
+            // Jeśli nie ma uprawnień, prosi użytkownika o ich przyznanie
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_PERMISSION)
+        } else {
+            // Jeśli uprawnienia są przyznane, uruchamia aparat
+            dispatchTakePictureIntent()
+        }
+    }
+
+    // Uruchamia intencję do zrobienia zdjęcia
+    private fun dispatchTakePictureIntent() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+    }
+
+    // Obsługuje wynik żądania uprawnień
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Jeśli uprawnienia są przyznane, uruchamia aparat
+                dispatchTakePictureIntent()
+            } else {
+                // Permission denied
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            val imagePath = saveImageToStorage(imageBitmap)
+            emitImageBroadcast(imagePath)
+        }
+    }
+
+    private fun saveImageToStorage(bitmap: Bitmap): String {
+        val filename = "IMG_${System.currentTimeMillis()}.jpg"
+        // Tworzenie pliku w zewnętrznym katalogu aplikacji
+        val file = File(requireContext().getExternalFilesDir(null), filename)
+        // Zapisywanie bitmapy do pliku w formacie JPEG w pamięci zewnętrznej
+        FileOutputStream(file).use { out ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+        }
+        // Zwracanie pełnej ścieżki do zapisanego pliku
+        return file.absolutePath
+    }
+
+    private fun emitImageBroadcast(imagePath: String) {
+        val intent = Intent("bottom_action")
+        intent.putExtra("imagePath", imagePath)
+        LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent)
     }
 
     private fun selectNoteColor(colorCode: String, colorName: String) {
         selectedNoteColor = colorCode
-
         val intent = Intent("bottom_action")
         intent.putExtra("actionNoteColor", colorName)
         intent.putExtra("selectedColor", selectedNoteColor)

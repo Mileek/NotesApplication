@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="15sp">
+        android:padding="20sp">
         <!--1-->
         <FrameLayout
             android:id="@+id/fNote1"
@@ -154,24 +154,20 @@
                 android:layout_gravity="center"
                 app:tint="@color/White" />
         </FrameLayout>
-        <!--8-->
+
         <FrameLayout
-            android:id="@+id/fNote8"
+            android:id="@+id/fPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="5sp"
+            android:paddingStart="10sp"
             tools:ignore="RtlSymmetry">
 
-            <View
+            <ImageView
+                android:id="@+id/imgPhoto"
                 android:layout_width="40sp"
                 android:layout_height="40sp"
-                android:background="@drawable/note_color_8" />
-
-            <ImageView
-                android:id="@+id/imgNote8"
-                android:layout_width="15sp"
-                android:layout_height="15sp"
                 android:layout_gravity="center"
+                android:src="@drawable/ic_camera"
                 app:tint="@color/White" />
         </FrameLayout>
 

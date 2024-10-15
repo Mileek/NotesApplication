@@ -6,8 +6,10 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.BitmapFactory
 import com.example.notesapplication.databinding.FragmentCreateNoteBinding
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ class CreateNoteFragment : BaseFragment() {
     private lateinit var binding: FragmentCreateNoteBinding // Zmienna do przechowywania powiązania z fragmentem
     var currentDate: String? = null // Zmienna przechowująca bieżącą datę
     var selectedNoteColor = "#00BCD4" // Kolor domyślny dla notatki
+    var imagePath: String? = null // Zmienna przechowująca ścieżkę obrazu, gdy nie ma obrazu, wartość null
     private var noteId = -1 // Identyfikator notatki, początkowo ustawiony na -1
 
 
@@ -67,6 +70,14 @@ class CreateNoteFragment : BaseFragment() {
                     binding.edtTitle.setText(notes.title)
                     binding.etNoteSubTitle.setText(notes.subTitle)
                     binding.etNoteDescription.setText(notes.noteText)
+
+                    Log.d("CreateNoteFragment", "Image Path: ${notes.imagePath}")
+
+                    //If image is not null assign it to image view
+                    notes.imagePath?.let { path ->
+                        val bitmap = BitmapFactory.decodeFile(path)
+                        binding.etNoteImage.setImageBitmap(bitmap)
+                    }
                 }
             }
         }
@@ -118,6 +129,7 @@ class CreateNoteFragment : BaseFragment() {
                 notes.noteText = binding.etNoteDescription.text.toString()
                 notes.dateTime = currentDate
                 notes.noteColor = selectedNoteColor
+                notes.imagePath = imagePath
 
                 NotesDataBase.getDatabase(it).notesDao().updateNote(notes)
                 binding.edtTitle.setText("")
@@ -149,6 +161,7 @@ class CreateNoteFragment : BaseFragment() {
                 notes.noteText = binding.etNoteDescription.text.toString()
                 notes.dateTime = currentDate
                 notes.noteColor = selectedNoteColor
+                notes.imagePath = imagePath
                 context?.let {
                     NotesDataBase.getDatabase(it)?.notesDao()?.insertNotes(notes)
                     binding.edtTitle.setText("")
@@ -182,61 +195,30 @@ class CreateNoteFragment : BaseFragment() {
             .addToBackStack(fragment.javaClass.simpleName).commit()
     }
 
-    //Musze odbierac z emitera
+    //Musze odbierac z emitera, coś jak singleton, ale poprzez eventy
     private var BroadcastReceiver: BroadcastReceiver? = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            var actionColor = intent!!.getStringExtra("actionNoteColor")
+            intent?.let { intn ->
+                val actionColor = intn.getStringExtra("actionNoteColor")
+                val actionImage = intn.getStringExtra("imagePath")
 
-            //Akcja nie powinna się tak nazywać, ale na początku miała tylko za zadanie obsługiwać kolory,
-            //potem to się zmieniło, ale nazwa została
-            when (actionColor!!) {
-                "Cyan" -> {
-                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
+                //Akcja nie powinna się tak nazywać, ale na początku miała tylko za zadanie obsługiwać kolory,
+                //potem to się zmieniło, ale nazwa została
+
+                actionColor?.let { color ->
+                    selectedNoteColor = intn.getStringExtra("selectedColor") ?: selectedNoteColor
                     binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
+                    when (color) {
+                        "Cyan", "Blue", "Purple", "DarkRed", "LightRed", "Orange", "Yellow" -> Unit
+                        "Delete" -> deleteNote()
+                        else -> binding.viewNoteColor.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                    }
                 }
 
-                "Blue" -> {
-                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
-                }
-
-                "Purple" -> {
-                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
-                }
-
-                "DarkRed" -> {
-                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
-                }
-
-                "LightRed" -> {
-                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
-                }
-
-                "Orange" -> {
-                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
-                }
-
-                "Yellow" -> {
-                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
-                }
-
-                "Green" -> {
-                    selectedNoteColor = intent.getStringExtra("selectedColor")!!
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor(selectedNoteColor))
-                }
-
-                "Delete" -> {
-                    //Delete Item
-                    deleteNote()
-                }
-
-                else -> {
-                    binding.viewNoteColor.setBackgroundColor(Color.parseColor("#FFFFFF"))
+                actionImage?.let { path ->
+                    imagePath = path
+                    val bitmap = BitmapFactory.decodeFile(path)
+                    binding.etNoteImage.setImageBitmap(bitmap)
                 }
             }
         }
