@@ -29,7 +29,7 @@
         android:layout_margin="12sp"
         android:background="@drawable/background"
         android:iconifiedByDefault="false"
-        android:queryHint="Search...(translate...)"
+        android:queryHint="Search..."
         android:searchIcon="@drawable/ic_search"
         android:theme="@style/ThemeOverlay.search"
         app:layout_constraintEnd_toEndOf="parent"
