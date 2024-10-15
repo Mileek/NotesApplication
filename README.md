@@ -10,6 +10,11 @@ Additionally, the application follows best practices in Android development by i
 
 Overall, NotesApplication serves as an excellent example of combining essential Android development techniques to create a practical, real-world application that meets the everyday needs of its users.
 
+![image](https://github.com/user-attachments/assets/3c9242d1-3e8e-4fad-9632-8c6fd4ee0c8d)
+![image](https://github.com/user-attachments/assets/d28c84e5-b6da-4a43-8b7f-b80eacd33aee)
+
+
+
 
 ## Table of Contents
 
@@ -24,6 +29,7 @@ Overall, NotesApplication serves as an excellent example of combining essential 
 - Create new notes with title and content
 - View a list of all notes
 - Update existing notes
+- Photos/Camera functionality
 - Delete notes
 - Simple and intuitive user interface
 - Data persistence using SQLite
